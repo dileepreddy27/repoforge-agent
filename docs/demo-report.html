@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RepoForge | Run evidence</title><style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#10151f;color:#e6edf5}
+body{max-width:1180px;margin:0 auto;padding:48px 24px}header{border-top:3px solid #5ee6b0;padding-top:22px}
+.eyebrow{letter-spacing:3px;color:#5ee6b0;font-size:13px}h1{font-size:clamp(34px,5vw,62px);letter-spacing:-2px;margin:16px 0}
+.lede{color:#a7b6cb;font-size:19px;max-width:760px;line-height:1.6}.metrics{display:flex;gap:18px;flex-wrap:wrap;margin:32px 0}
+.metric{background:#1a2332;padding:20px 24px;border:1px solid #2a384c;border-radius:12px;flex:1;min-width:180px}
+.metric strong{display:block;font-size:24px;margin-bottom:8px}.metric span,footer{color:#a7b6cb;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+article{background:#161f2c;border:1px solid #2a384c;border-radius:12px;overflow:hidden}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid #2a384c}
+h2{font-size:18px}.badge{font-size:12px;font-weight:700;padding:6px 10px;border-radius:30px}
+.pass{color:#5ee6b0;background:#153e35}.fail{color:#ffc480;background:#443222}
+pre{font-size:12px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;padding:18px;color:#b9c8db;max-height:440px;overflow:auto}
+footer{margin-top:28px;line-height:1.8}code{color:#5ee6b0}</style>
+<header><div class="eyebrow">REPOFORGE / ENGINEERING EVIDENCE</div><h1>A repair is only a hypothesis.</h1>
+<p class="lede">Follow the test feedback from a failing baseline to a reviewable patch. Every attempt is recorded; passing tests remain a reason to review, not a reason to skip review.</p></header>
+<div class="metrics"><div class="metric"><strong>ready_for_review</strong><span>Final workflow state</span></div>
+<div class="metric"><strong>2</strong><span>Repair attempts</span></div>
+<div class="metric"><strong>trusted-demo</strong><span>Execution mode</span></div></div>
+<div class="grid"><article><div class="row"><h2>Baseline</h2><span class="badge fail">FAIL</span></div><pre>test_empty (test_stats.MeanTests.test_empty) ... FAIL
+test_fraction (test_stats.MeanTests.test_fraction) ... FAIL
+test_integer (test_stats.MeanTests.test_integer) ... ok
+test_negative (test_stats.MeanTests.test_negative) ... FAIL
+
+======================================================================
+FAIL: test_empty (test_stats.MeanTests.test_empty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;&lt;synthetic-fixture&gt;\tests\test_stats.py&quot;, line 10, in test_empty
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fraction (test_stats.MeanTests.test_fraction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;&lt;synthetic-fixture&gt;\tests\test_stats.py&quot;, line 6, in test_fraction
+    self.assertEqual(mean([1, 2]), 1.5)
+AssertionError: 1 != 1.5
+
+======================================================================
+FAIL: test_negative (test_stats.MeanTests.test_negative)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;&lt;synthetic-fixture&gt;\tests\test_stats.py&quot;, line 8, in test_negative
+    self.assertEqual(mean([-1, -2]), -1.5)
+AssertionError: -2 != -1.5
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.005s
+
+FAILED (failures=3)
+</pre></article><article><div class="row"><h2>Repair 1</h2><span class="badge fail">FAIL</span></div><pre>test_empty (test_stats.MeanTests.test_empty) ... ok
+test_fraction (test_stats.MeanTests.test_fraction) ... FAIL
+test_integer (test_stats.MeanTests.test_integer) ... ok
+test_negative (test_stats.MeanTests.test_negative) ... FAIL
+
+======================================================================
+FAIL: test_fraction (test_stats.MeanTests.test_fraction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;&lt;synthetic-fixture&gt;\tests\test_stats.py&quot;, line 6, in test_fraction
+    self.assertEqual(mean([1, 2]), 1.5)
+AssertionError: 1 != 1.5
+
+======================================================================
+FAIL: test_negative (test_stats.MeanTests.test_negative)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File &quot;&lt;synthetic-fixture&gt;\tests\test_stats.py&quot;, line 8, in test_negative
+    self.assertEqual(mean([-1, -2]), -1.5)
+AssertionError: -2 != -1.5
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+FAILED (failures=2)
+</pre></article><article><div class="row"><h2>Repair 2</h2><span class="badge pass">PASS</span></div><pre>test_empty (test_stats.MeanTests.test_empty) ... ok
+test_fraction (test_stats.MeanTests.test_fraction) ... ok
+test_integer (test_stats.MeanTests.test_integer) ... ok
+test_negative (test_stats.MeanTests.test_negative) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK
+</pre></article></div><footer>Provider: <code>DemoProvider</code> · Run: <code>38d9f6a14268475fa80ce9121ac526b8</code><br>
+DemoProvider is a deterministic synthetic demonstration, not model-generated code. Live model quality is not measured here.</footer></html>
