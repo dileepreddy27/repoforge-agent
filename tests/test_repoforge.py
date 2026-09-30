@@ -146,8 +146,10 @@ def test_docker_vertical_slice(source, tmp_path):
 
 @pytest.mark.skipif(not os.environ.get("REPOFORGE_TEST_DOCKER"), reason="Docker not configured")
 def test_docker_runtime_boundaries(tmp_path):
-    (tmp_path / "tests").mkdir()
-    (tmp_path / "tests/test_boundary.py").write_text('''import os
+    # pytest's temp root is mode 0700; mount a normal readable project directory.
+    root = tmp_path / "execution"
+    (root / "tests").mkdir(parents=True)
+    (root / "tests/test_boundary.py").write_text('''import os
 import socket
 import unittest
 from pathlib import Path
@@ -161,4 +163,5 @@ class BoundaryTests(unittest.TestCase):
         with self.assertRaises(OSError):
             socket.create_connection(("1.1.1.1", 443), timeout=1)
 ''', encoding="utf-8")
-    assert Runner().run(tmp_path)["passed"]
+    result = Runner().run(root)
+    assert result["passed"], result["log"]
